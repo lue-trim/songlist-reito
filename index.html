@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>早稻叽的歌单（丐版）</title>
+<script src="./js/jquery.2.4.1.min.js">
+function displayDate(){
+	document.getElementById("demo").innerHTML=Date();
+}
+
+function getSongJson(){
+    var res = $.post(
+        "https://api.starlwr.com/songlist/getView", {
+        "url": "wasesong.songlist.cc",
+        "uid": 0
+    })
+    document.getElementById("status_text").innerHTML = res.responseJSON
+}
+</script>
+</head>
+<body>
+
+<p id="demo">↓点一下这个神奇的按钮即可获取歌单</p>
+
+<button type="button" onclick="getSongJson()">开始获取</button>
+
+<p id="status_text"></p>
+
+</body>
+</html>

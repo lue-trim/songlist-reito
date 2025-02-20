@@ -74,6 +74,8 @@ def main():
     # 处理
     print(f"正在抓取最新歌单: {url}")
     song_json = fetch_song(url)
+    with open("songs.json", 'w') as f:
+        json.dump(song_json, f)
     print("格式转换中...")
     export_data = convert_song(song_json)
 
