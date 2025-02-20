@@ -3,6 +3,14 @@ import json
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 class RequestHandler(BaseHTTPRequestHandler):
+    def do_OPTIONS(self):
+        '处理跨域请求'
+        self.send_response(200)
+        self.send_header('Allow', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Headers', 'X-Request, X-Requested-With')
+        self.end_headers()
+
     def do_POST(self):
         '接收到客户端信息的时候'
         js = fetch_save.fetch_song('wasesong.songlist.cc')
