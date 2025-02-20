@@ -22,7 +22,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps(data).encode())
 
 def main():
-    addr = ("0.0.0.0", 63108)
+    addr = ("0.0.0.0", 63104)
     server = HTTPServer(addr, RequestHandler)
     server.serve_forever()
 

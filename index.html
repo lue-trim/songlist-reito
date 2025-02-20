@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>早稻叽的歌单（丐版）</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>早稻叽的歌单（丐版）</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
+
 <body>
-<script src="./js/jquery.2.4.1.min.js">
+    <script src="./js/jquery.2.4.1.min.js"></script>
+<script>
 function displayDate(){
 	document.getElementById("demo").innerHTML=Date();
 }
@@ -13,18 +29,98 @@ function displayDate(){
 function getSongJson(){
     var res = $.post(
         "https://api.starlwr.com/songlist/getView", {
-        "url": "wasesong.songlist.cc",
-        "uid": 0
-    })
-    document.getElementById("status_text").innerHTML = res.responseJSON
+        url: "wasesong.songlist.cc",
+        uid: 0
+    }, function(data,status){}).then(function(e){document.getElementById("status_text").innerHTML = e.data;});
+    
 }
+
+document.write("<p>点击按钮即可加载或者刷新</p>")
 </script>
 
-<p id="demo">↓点一下这个神奇的按钮即可获取歌单</p>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const fetchDataButton = document.getElementById("fetchDataButton");
+    const tableContainer = document.getElementById("tableContainer");
+
+    fetchDataButton.addEventListener("click", () => {
+        // 发送 POST 请求
+        tableContainer.innerHTML = "<p>憋急，正在加载.</p>";
+        // fetch("https://api.starlwr.com/songlist/getView", {
+        fetch("http://luetrim.top:63104", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0',
+            },
+            body: JSON.stringify({
+                // 在这里添加需要发送的数据
+                url: "wasesong.songlist.cc",
+                uid: 0
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("服务器抛出了一条错误.");
+            }
+            return response.json()['data']['songs']; // 解析返回的 JSON 数据
+        })
+        .then(data => {
+            // 将 JSON 数据转换为表格
+            createTable(data);
+        })
+        .catch(error => {
+            console.error("无法将数据转换成表格.", error);
+            tableContainer.innerHTML = "<p>数据解析失败.</p>";
+        });
+    });
+
+    function createTable(data) {
+        // 检查数据是否是数组
+        if (!Array.isArray(data)) {
+            tableContainer.innerHTML = "<p>表格解析失败.</p>";
+            return;
+        }
+
+        // 创建表格
+        const table = document.createElement("table");
+
+        // 创建表头
+        const headerRow = document.createElement("tr");
+        const keys = Object.keys(data[0]); // 假设所有对象的键都相同
+        keys.forEach(key => {
+            const th = document.createElement("th");
+            th.textContent = key;
+            headerRow.appendChild(th);
+        });
+        table.appendChild(headerRow);
+
+        // 创建表格行
+        data.forEach(item => {
+            const row = document.createElement("tr");
+            keys.forEach(key => {
+                const cell = document.createElement("td");
+                cell.textContent = item[key];
+                row.appendChild(cell);
+            });
+            table.appendChild(row);
+        });
+
+        // 清空容器并添加表格
+        tableContainer.innerHTML = "";
+        tableContainer.appendChild(table);
+    }
+});
+</script>
+
+<button id="fetchDataButton">点这里</button>
+    <div id="tableContainer"></div>
+
+<!-- <p id="demo">↓点一下这个神奇的按钮即可获取歌单</p>
 
 <button type="button" onclick="getSongJson()">开始获取</button>
 
-<p id="status_text">不出意外的话结果应该会显示在这里</p>
+<p id="status_text">不出意外的话结果应该会显示在这里</p> -->
 
 </body>
 </html>
