@@ -1,4 +1,4 @@
-def fetch_song(url):
+def fetch_song():
     '抓取歌单信息'
     import requests, json
 
