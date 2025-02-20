@@ -46,8 +46,8 @@ document.write("<p>点击按钮即可加载或者刷新</p>")
     fetchDataButton.addEventListener("click", () => {
         // 发送 POST 请求
         tableContainer.innerHTML = "<p>憋急，正在加载.</p>";
-        // fetch("https://api.starlwr.com/songlist/getView", {
-        fetch("http://luetrim.top:63104", {
+        fetch("https://api.starlwr.com/songlist/getView", {
+        // fetch("http://luetrim.top:63104", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -63,11 +63,12 @@ document.write("<p>点击按钮即可加载或者刷新</p>")
             if (!response.ok) {
                 throw new Error("服务器抛出了一条错误.");
             }
-            return response.json()['data']['songs']; // 解析返回的 JSON 数据
+            // var res = response.json()
+            return response.json(); // 解析返回的 JSON 数据
         })
         .then(data => {
             // 将 JSON 数据转换为表格
-            createTable(data);
+            createTable(data.data.songs);
         })
         .catch(error => {
             console.error("无法将数据转换成表格.", error);
@@ -87,8 +88,10 @@ document.write("<p>点击按钮即可加载或者刷新</p>")
 
         // 创建表头
         const headerRow = document.createElement("tr");
-        const keys = Object.keys(data[0]); // 假设所有对象的键都相同
-        keys.forEach(key => {
+        //const keys = Object.keys(data[0]); // 假设所有对象的键都相同
+        const keys = ["id","name","singer","language","style","pay","guard","gift","video","remark","status","sequence","first"];
+        const display_keys = ["id","歌名","艺术家","语言","风格","SC","航海等级","","视频","备注","","排序","首字母"];
+        display_keys.forEach(key => {
             const th = document.createElement("th");
             th.textContent = key;
             headerRow.appendChild(th);

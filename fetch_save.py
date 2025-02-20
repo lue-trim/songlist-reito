@@ -4,7 +4,8 @@ def fetch_song():
 
     url = 'https://api.starlwr.com/songlist/getView'
     headers = {
-        'content-type': 'application/json', 
+        'Content-Type': 'application/json', 
+        'Referer': 'https://wasesong.songlist.cc/',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0',
         }
 
