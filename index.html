@@ -20,11 +20,11 @@
 </head>
 
 <body>
-    <p>Provided by luetrim.top/lue-trim.github.io <kbd><a href="/index.html">主页</a></kbd></p>
+    <p><a href="/index.html">主页</a></p>
     <hr />
-    <h1>早稻叽的歌单（丐版）</h1>
+    <h1><早稻叽的歌单（丐版）</h1>
     <p>tips: 数据是每次刷新临时从官方站<a href="https://wasesong.songlist.cc">wasesong.songlist.cc</a>爬来的，所以加载时间很随缘</p>
-    <p>本网站由AI生成</p>
+    <p>*核心部分代码由AI生成</p>
     <hr />
     <!-- <script src="./js/jquery.2.4.1.min.js"></script> -->
 <!-- <script>
@@ -50,7 +50,7 @@ document.write("<p>点击按钮即可加载或者刷新</p>")
         const tableContainer = document.getElementById("tableContainer");
 
         // 发送 POST 请求
-        tableContainer.innerHTML = "<p>憋急，正在从官方数据库抓取</p>";
+        tableContainer.innerHTML = "<p>在加载了，憋急…</p>";
         fetch("https://api.starlwr.com/songlist/getView", {
         // fetch("http://luetrim.top:63104", {
             method: "POST",
