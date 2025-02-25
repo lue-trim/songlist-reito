@@ -20,7 +20,13 @@
 </head>
 
 <body>
-    <script src="./js/jquery.2.4.1.min.js"></script>
+    <p>Provided by luetrim.top/lue-trim.github.io <kbd><a href="/index.html">主页</a></kbd></p>
+    <hr />
+    <h1>早稻叽的歌单（丐版）</h1>
+    <p>tips: 数据是每次刷新临时从官方站<a href="https://wasesong.songlist.cc">wasesong.songlist.cc</a>爬来的，所以加载时间很随缘</p>
+    <p>本网站由AI生成</p>
+    <hr />
+    <!-- <script src="./js/jquery.2.4.1.min.js"></script> -->
 <!-- <script>
 function displayDate(){
 	document.getElementById("demo").innerHTML=Date();
@@ -49,6 +55,7 @@ document.write("<p>点击按钮即可加载或者刷新</p>")
         // fetch("http://luetrim.top:63104", {
             method: "POST",
             headers: {
+                'Access-Control-Allow-Origin': 'https://lue-trim.github.io',
                 "Content-Type": "application/json",
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0',
             },
@@ -88,7 +95,7 @@ document.write("<p>点击按钮即可加载或者刷新</p>")
         const headerRow = document.createElement("tr");
         //const keys = Object.keys(data[0]); // 假设所有对象的键都相同
         const keys = ["id","name","singer","language","style","pay","guard","gift","video","remark","status","sequence","first"];
-        const display_keys = ["id","歌名","艺术家","语言","风格","SC","需舰长否","","视频","备注","","排序","首字母"];
+        const display_keys = ["id","歌名","原唱","语言","曲风","SC金额","需舰长否","","视频","备注","","排序","首字母"];
         display_keys.forEach(key => {
             const th = document.createElement("th");
             th.textContent = key;
