@@ -4,11 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>早稻叽的歌单（丐版）</title>
-    <link rel="stylesheet" href="https://cdn-font.hyperos.mi.com/font/css?family=MiSans:100,200,300,400,450,500,600,650,700,900:Chinese_Simplify,Latin&display=swap" />
     <style>
+        body {
+            background-image: url(https://luetrim-bucket.oss-rg-china-mainland.aliyuncs.com/img/queen.jpg) !important;
+            /* background-image: url("static/wasehand.png"); */
+            background-repeat: no-repeat !important;
+            /* background-repeat: repeat; */
+            background-size: auto !important;
+            background-attachment: fixed !important;
+            background-position-x: center !important;
+            background-color: #ffffffee !important;
+            backdrop-filter: blur(10px) ;
+            margin: 0;
+            padding-top: 70px;
+            /* padding-bottom: 80px; */
+            /* opacity: 0.4; */
+        }
+        header {
+            background-color: #ffffff9e !important;
+            backdrop-filter: blur(20px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+        }
+
+        a {
+            padding: 10px;
+            display: inline flex;
+            /* justify-content: center; */
+            /* margin: 10px 0; */
+            transition: .25s;
+            border-radius: 10px;
+            background: #ff80ab00;
+        }
+        a:link{
+            color: #ff80ab;
+            /* color: #212529; */
+        }
+        a:visited {
+            color: #ff80ab;
+            /* color: #212529; */
+        }
+        a:hover {
+            padding: 0, 10px;
+            background: #ff80ab60;
+            color: #212529;
+            /* text-decoration: none; */
+            border-radius: 10px;
+            /* margin: 10px 0; */
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            background-color: #ffffff80 !important;
+            backdrop-filter: blur(10px);
+            /* opacity: 0.4; */
+            /* max-width: 1140px; */
+            margin-bottom: 10px;
+            overflow: auto;
         }
         th, td {
             border: 1px solid #ddd;
@@ -17,19 +71,103 @@
         th {
             background-color: #f2f2f2;
         }
+
+        header a{
+            color: #212529;
+            text-decoration: none;
+        }
+
+        @font-face {
+            font-family: "Alibaba Sans Regular";font-weight: 400;src: url("https://luetrim-bucket.oss-rg-china-mainland.aliyuncs.com/font/AlibabaSans-Regular.woff2") format("woff2"),
+            url("https://luetrim-bucket.oss-rg-china-mainland.aliyuncs.com/font/AlibabaSans-Regular.woff") format("woff");
+            font-display: swap;
+        }
+        ::selection {
+            background: #ff80ab80;
+            /* color: #000000; */
+        }
+
+        .block {
+            background-color: #ffffff80 !important;
+            backdrop-filter: blur(10px);
+            /* opacity: 0.4; */
+            /* max-width: 1140px; */
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .text {
+            margin: auto;
+            align-content: center;
+            padding: 10px;
+            /* max-width: 1140px; */
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .blankcol {
+            float: left;
+            width: 10%;
+        }
+        .maincol {
+            float: left;
+            width: 80%;
+            /* max-width: 1140px; */
+            display: grid;
+            align-content: center;
+        }
+        @media screen and (max-width: 1200px) {
+            .blankcol {
+                width: 0;
+            }
+            .maincol {
+                width: 100%;
+            }
+        }
+
         * {
-            font-family: MiSans,Microsoft YaHei;
+            font-family: "Alibaba Sans Regular";
+            text-wrap: balance;
         }
     </style>
 </head>
 
+<header>
+    <div class="row">
+        <div class="blankcol">
+            <p></p>
+        </div>
+        <div class="text">
+            <a href="/index.html">主页</a>
+            <a href="/songlist/index.html">歌单</a>
+            <a href="/matsuri.icu">弹幕站</a>
+        </div>
+        <div class="blankcol">
+            <p></p>
+        </div>
+    </div>
+</header>
 <body>
-    <p><a href="/index.html">主页</a></p>
-    <hr />
-    <h1>早稻叽的歌单（丐版）</h1>
-    <p>tips: 数据是每次刷新临时从官方站<a href="https://wasesong.songlist.cc">wasesong.songlist.cc</a>爬来的，所以加载时间很随缘</p>
-    <p>*核心部分代码由AI生成</p>
-    <hr />
+    <div class="row">
+        <div class="blankcol">
+            <p></p>
+        </div>
+        <div class="maincol">
+            <div class="block">
+                <h1>早稻叽的歌单（丐版）</h1>
+                <p>tips: 数据是每次刷新临时从官方站<a href="https://wasesong.songlist.cc">wasesong.songlist.cc</a>爬来的，所以加载时间很随缘</p>
+                <p>*核心部分代码由AI生成</p>
+            </div>
+            <div id="tableContainer" align="center"></div>
+        </div>
+        <div class="blankcol">
+            <p></p>
+        </div>
+    </div>
     <!-- <script src="./js/jquery.2.4.1.min.js"></script> -->
 <!-- <script>
 function displayDate(){
@@ -54,7 +192,7 @@ document.write("<p>点击按钮即可加载或者刷新</p>")
         const tableContainer = document.getElementById("tableContainer");
 
         // 发送 POST 请求
-        tableContainer.innerHTML = "<p>在加载了，憋急…</p>";
+        tableContainer.innerHTML = '<p align="center">在加载了，憋急…</p>';
         fetch("https://api.starlwr.com/songlist/getView", {
         // fetch("http://luetrim.top:63104", {
             method: "POST",
@@ -126,7 +264,6 @@ document.write("<p>点击按钮即可加载或者刷新</p>")
 </script>
 
 <!-- <button id="fetchDataButton">点这里</button> -->
-    <div id="tableContainer"></div>
 
 <!-- <p id="demo">↓点一下这个神奇的按钮即可获取歌单</p>
 
